@@ -5,7 +5,8 @@
     "type": "library",
     "license": "MIT",
     "keywords": ["xml", "html", "html5", "dom", "dom-builder", "html-builder"],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "authors": [
         {
             "name": "Hiago dos Santos",
@@ -14,6 +15,7 @@
     ],
     "config": {
         "optimize-autoloader": true,
+        "preferred-install": "dist",
         "sort-packages": true
     },
     "autoload": {
@@ -37,6 +39,7 @@
         "issues": "https://github.com/hisan92/htmlbuilder/issues"
     },
     "require-dev": {
+        "php-coveralls/php-coveralls": "^2.4",
         "phpunit/phpunit": "^9.5"
     }
 }

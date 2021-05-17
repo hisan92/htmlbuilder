@@ -8,7 +8,11 @@ install:
   - composer install --no-interaction --no-suggest
 
 script:
-  - phpunit --coverage-text
+  - mkdir -p build/logs
+  - phpunit --coverage-clover build/logs/clover.xml
+
+after_script:
+  - php vendor/bin/coveralls -v
 
 cache:
   directories:
