@@ -1,0 +1,42 @@
+{
+    "name": "hisan/htmlbuilder",
+    "description": "Lightweight HTML Builder for PHP",
+    "version": "0.0.1-dev",
+    "type": "library",
+    "license": "MIT",
+    "keywords": ["xml", "html", "html5", "dom", "dom-builder", "html-builder"],
+    "minimum-stability": "stable",
+    "authors": [
+        {
+            "name": "Hiago dos Santos",
+            "email": "hiagosantos@pm.me"
+        }
+    ],
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
+    "autoload": {
+        "files": [
+            "src/HTML/helpers.php",
+            "src/Support/helpers.php"
+        ],
+        "psr-4": {
+            "HTMLBuilder\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "HTMLBuilder\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": "^7.4|^8.0"
+    },
+    "support": {
+        "issues": "https://github.com/hisan92/htmlbuilder/issues"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    }
+}
