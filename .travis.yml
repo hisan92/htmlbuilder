@@ -1,0 +1,15 @@
+language: php
+
+php:
+  - 7.4
+  - 8.0
+
+install:
+  - composer install --no-interaction --no-suggest
+
+script:
+  - phpunit --coverage-text
+
+cache:
+  directories:
+  - $HOME/.composer/cache
