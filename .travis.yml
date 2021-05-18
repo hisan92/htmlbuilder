@@ -9,7 +9,7 @@ install:
 
 script:
   - mkdir -p build/logs
-  - phpunit --coverage-clover build/logs/clover.xml
+  - phpunit --coverage-clover build/logs/clover.xml -c app
 
 after_script:
   - php vendor/bin/php-coveralls -v
