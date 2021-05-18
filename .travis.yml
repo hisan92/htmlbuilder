@@ -5,7 +5,7 @@ php:
   - 8.0
 
 install:
-  - composer install --no-interaction
+  - composer install --no-interaction --no-progress --prefer-dist
 
 script:
   - mkdir -p build/logs
