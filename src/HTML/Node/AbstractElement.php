@@ -101,7 +101,6 @@ abstract class AbstractElement extends AbstractNode implements IHTMLElement, Par
     {
         $this->id = static::hashid();
         $this->tag = $tag;
-        $this->style = new Style;
         $this->children = new Collection;
         $this->validAttrs = $options['props']['validAttrs'];
         $this->obsoleteAttrs = $options['props']['obsoleteAttrs'];
@@ -121,6 +120,15 @@ abstract class AbstractElement extends AbstractNode implements IHTMLElement, Par
             if (is_string($options['classes']))
                 $this->classes = explode(' ', $options['classes']);
         }
+
+        if (isset($options['style'])) {
+            if ($options['style'] instanceof Style)
+                $this->style = $options['style'];
+            else
+                $this->style = new Style($options['style']);
+        } else {
+            $this->style = new Style;
+        }
     }
 
     public function __clone()
@@ -132,10 +140,12 @@ abstract class AbstractElement extends AbstractNode implements IHTMLElement, Par
     public function __toString()
     {
         return "<{$this->tag}"
+            . implode(' ', $this->attributes($this->data, 'data-%s="%s"'))
+            . implode(' ', $this->attributes($this->attributes))
             . (count($this->classes)
                 ? sprintf(' class="%s"', $this->classes()) : '')
-            . implode(' ', $this->attributes($this->data, 'data-%s="%s"'))
-            . implode(' ', $this->attributes($this->attributes)) . '>'
+            . ($this->style->isDefined()
+                ? sprintf(' style="%s"', (string) $this->style) : '') . '>'
             . (string) $this->children
             . (! static::selfClosed ? "</{$this->tag}>" : '')
         ;
@@ -156,7 +166,7 @@ abstract class AbstractElement extends AbstractNode implements IHTMLElement, Par
     {
         $validElements = static::getValidElements();
 
-        throw_if(! isset($validElements[$tag]), InvalidElementException::class);
+        throw_unless(isset($validElements[$tag]), InvalidElementException::class);
 
         $props = $validElements[$tag];
 
@@ -285,10 +295,22 @@ abstract class AbstractElement extends AbstractNode implements IHTMLElement, Par
     }
 
     /**
+     * Get Style instance.
+     *
+     * @return \HTMLBuilder\HTML\Property\Style
+     */
+    public function style()
+    {
+        return $this->style;
+    }
+
+    /**
+     * Get/set data-{key} property.
+     *
      * @param  string     $name
      * @param  string|int $value
      *
-     * @return $this
+     * @return $this|string
      */
     public function data($name, $value = null)
     {

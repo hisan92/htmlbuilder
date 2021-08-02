@@ -48,4 +48,13 @@ class HelpersTest extends TestCase
 
         $this->assertFalse(isSerializable([]));
     }
+
+    public function testCheckIfElementOfArrayPassInTest()
+    {
+        $items = ['A', 'B', 'C'];
+
+        $this->assertTrue(array_some(fn ($el) => $el === 'B', $items));
+
+        $this->assertFalse(array_some(fn ($el) => $el === 'D', $items));
+    }
 }

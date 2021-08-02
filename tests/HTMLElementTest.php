@@ -56,7 +56,7 @@ class HTMLElementTest extends TestCase
         ]);
 
         $this->assertEquals('div', $el->getTagName());
-        $this->assertEquals('<div class="foo bar" id="foo"></div>', $el->output());
+        $this->assertEquals('<div id="foo" class="foo bar"></div>', $el->output());
     }
 
     public function testCreateElementWithTextContent()
